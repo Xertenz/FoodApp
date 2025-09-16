@@ -1,0 +1,131 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+.home-container .home {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.home-container .bg {
+	font-size: 0;
+}
+
+.home .left .title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #ff9560;
+}
+
+.home .left .description {
+  color: #878787;
+}
+
+.home .right .logo {
+  width: 150px;
+  border-radius: 12px;
+}
+
+.home .left button {
+  background-color: #ff9560;
+  margin-top: 20px;
+  font-size: 16px;
+  color: white;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 0px;
+  transition: all 0.3s ease;
+}
+.home .left button:hover {
+  background-color: #cf4303;
+}
+
+/*Navbar Start*/
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #f0f0f0;
+	padding: 10px 50px;
+}
+nav .logo img {
+	width: 50px
+}
+nav .nav-links ul {
+	list-style: none;
+	display: flex;
+	align-items: center;
+}
+nav .nav-links ul li a{
+	display: inline-block;
+	padding: 10px 20px;
+	text-decoration: none;
+	color: #ff9560;
+	transition: 0.3s all ease;
+}
+
+nav .nav-links ul li a:hover {
+  background-color: #cf4303;
+	color: white;
+}
+/*Navbar End*/
+
+
+/*Start Recipes*/
+.cards-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: space-between;
+	padding: 2rem;
+}
+.cards-wrapper .card {
+	width: 300px;
+	padding: 1rem;
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	position: relative;
+}
+.cards-wrapper .card,
+.cards-wrapper .card .title,
+.cards-wrapper .card .instructions {
+	transition: all 0.3s ease;
+}
+.cards-wrapper .card:hover {
+	transform: translateY(-5px);
+	background-color: #ff9560;
+	color: #fff;
+}
+.cards-wrapper .card:hover .title {
+	color: red;
+}
+.cards-wrapper .card .title {
+	color: #ff6347;
+	text-transform: capitalize;
+}
+.cards-wrapper .card .title,
+.cards-wrapper .card .ingredients
+{
+	margin-bottom: 8px;
+}
+.cards-wrapper .card .instructions {
+	color: #555;
+}
+.cards-wrapper .card:hover .instructions {
+	color: #fff;
+}
+.cards-wrapper .card .card-icon {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	font-size: 1.5rem;
+	color: #ff6347
+}
+/*End Recipes*/
