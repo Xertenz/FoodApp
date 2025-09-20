@@ -1,0 +1,13 @@
+.modal {
+	display: block;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal .modal-dialog {
+	margin: 0;
+	height: 100%;
+}
+
+.modal .modal-dialog .modal-content .modal-body {
+	flex: none
+}

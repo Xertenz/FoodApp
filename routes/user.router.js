@@ -63,7 +63,7 @@ router.post("/signin", async (req, res) => {
     const userExist = await User.findOne({ email });
     if (userExist && (await bcrypt.compare(password, userExist.password))) {
       const token = jwt.sign(
-        { email, id: userExist.__id },
+        { email, id: userExist._id },
         process.env.SECRET_KEY,
         { expiresIn: "1w" }
       );

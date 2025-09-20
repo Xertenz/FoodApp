@@ -63,11 +63,13 @@ nav .nav-links ul {
 	display: flex;
 	align-items: center;
 }
-nav .nav-links ul li a{
+nav .nav-links ul li a,
+nav .nav-links ul li button{
 	display: inline-block;
 	padding: 10px 20px;
 	text-decoration: none;
 	color: #ff9560;
+	cursor: pointer;
 	transition: 0.3s all ease;
 }
 
