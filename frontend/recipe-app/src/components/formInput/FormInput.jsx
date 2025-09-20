@@ -2,12 +2,29 @@ import axios from "axios";
 import { useState } from "react";
 
 export default function FormInput() {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSignUp, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(false);
+	const [error, setError] = useState("")
+	const [success, setSuccess] = useState("")
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const endPoint = isSignUp ? "register" : "signin";
+
+    await axios
+      .post(`http://127.0.0.1:3000/users/${endPoint}`, { email, password })
+      .then((response) => {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+				setSuccess(response.data.message)
+        setError("");
+      })
+      .catch((err) => {
+        setError(err.response.data.error);
+				setSuccess("")
+      });
   };
 
   return (
@@ -51,6 +68,8 @@ export default function FormInput() {
       >
         {isSignUp ? "Sign up" : "Login"}
       </button>
+			{(error != "") && <p className="text-danger">{error}</p>}
+			{(success != "") && <p className="text-success">{success}</p>}
       <p className="my-4 user-select-none">
         <span role="button" onClick={() => setIsSignUp(!isSignUp)}>
           {isSignUp ? "Login to your account" : "Create a new account"}

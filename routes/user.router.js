@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 router.post("/register", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+    return res.status(400).json({ error: "Email and password are required" });
   }
 
   try {
@@ -79,7 +79,7 @@ router.post("/signin", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   if (!id) {
-    return res.status(400).json({ message: "Id is required" });
+    return res.status(400).json({ error: "Id is required" });
   }
 
   try {

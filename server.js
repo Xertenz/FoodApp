@@ -17,8 +17,5 @@ app.use(express.urlencoded({extended: false}))
 app.use("/recipes", recipeRouter)
 app.use("/users", userRouter)
 
-app.get('/a', (req, res) => {
-	res.send("hello world")
-})
 
 app.listen(port, () => console.log("working successfully"));
