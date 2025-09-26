@@ -2,6 +2,7 @@ const express = require("express");
 const Recipe = require("../models/recipe.model");
 const router = express.Router();
 const multer = require("multer");
+const verifyToken = require('../middleware/auth')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -63,8 +64,11 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.post("/add", upload.single("coverImage"), async (req, res) => {
+router.post("/add", upload.single("coverImage"), verifyToken, async (req, res) => {
   const { title, ingredients, instructions } = req.body;
+
+	console.log(req.user)
+
   try {
     if (
       title == "undefined" ||
@@ -77,7 +81,8 @@ router.post("/add", upload.single("coverImage"), async (req, res) => {
       title,
       ingredients,
       instructions,
-			coverImage: req.file?.filename
+			coverImage: req.file?.filename,
+			createdBy: req.user.id
     });
 
     return res.status(200).json(newRecipe);

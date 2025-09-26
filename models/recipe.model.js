@@ -22,6 +22,10 @@ const RecipeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+	createdBy: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Users"
+	}
 });
 
 module.exports = mongoose.model("Recipes", RecipeSchema);

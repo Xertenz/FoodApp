@@ -1,10 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import image1 from "../../assets/recipes-image-1.jpg";
 import AllRecipes from "../../components/allrecipes/AllRecipes";
+import { useState } from "react";
+import Modal from "../../components/modal/Modal";
+import FormInput from "../../components/formInput/FormInput";
 
 export default function Home() {
 
+	const [isOpen, setIsOpen] = useState(false)
+
 	const navigate = useNavigate();
+
+	const addRecipe = () => {
+		const token = localStorage.getItem("token")
+		if(token) {
+			navigate("/addRecipe")
+		}else{
+			setIsOpen(true)
+		}
+		
+	}
+
+	const closeModal = () => {
+		setIsOpen(false)
+	}
 
   return (
     <div className="home-container">
@@ -16,7 +35,7 @@ export default function Home() {
             with the world. Whether its a family secret or a new creation, we
             want to see it!
           </p>
-          <button onClick={() => navigate("/addRecipe")}>Share Your Recipe</button>
+          <button onClick={addRecipe}>Share Your Recipe</button>
         </div>
         <div className="right">
           <img src={image1} className="logo" />
@@ -32,6 +51,11 @@ export default function Home() {
           ></path>
         </svg>
       </div>
+      {isOpen && (
+        <Modal onClose={closeModal}>
+          <FormInput />
+        </Modal>
+      )}
 			<AllRecipes />
     </div>
   );
