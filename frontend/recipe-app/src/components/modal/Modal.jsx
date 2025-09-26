@@ -1,6 +1,7 @@
 import "./Modal.css";
 
 export default function Modal({ onClose, children }) {
+
   return (
     <div className="backdrop">
       <div className="modal" tabIndex="-1">

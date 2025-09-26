@@ -1,7 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import image1 from "../../assets/recipes-image-1.jpg";
 import AllRecipes from "../../components/allrecipes/AllRecipes";
 
 export default function Home() {
+
+	const navigate = useNavigate();
+
   return (
     <div className="home-container">
       <section className="home">
@@ -12,7 +16,7 @@ export default function Home() {
             with the world. Whether its a family secret or a new creation, we
             want to see it!
           </p>
-          <button>Share Your Recipe</button>
+          <button onClick={() => navigate("/addRecipe")}>Share Your Recipe</button>
         </div>
         <div className="right">
           <img src={image1} className="logo" />

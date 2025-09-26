@@ -1,13 +1,26 @@
 const express = require("express");
 const Recipe = require("../models/recipe.model");
 const router = express.Router();
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/images/");
+  },
+  filename: function (req, file, cb) {
+    const filename = Date.now() + "-" + file.fieldname;
+    cb(null, filename);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 router.get("/", async (req, res) => {
   try {
     const recipes = await Recipe.find({}, { _id: false, __v: false });
-    res.status(200).json(recipes);
+    return res.status(200).json(recipes);
   } catch (error) {
-    res.status(400).json({ error: "Error in getting recipes" });
+    return res.status(400).json({ error: "Error in getting recipes" });
   }
 });
 
@@ -18,11 +31,11 @@ router.get("/:id", async (req, res) => {
       __v: false,
     });
     if (!recipe) {
-      res.status(400).json({ error: "There is no recipe with this id" });
+      return res.status(400).json({ error: "There is no recipe with this id" });
     }
-    res.status(200).json(recipe);
+    return res.status(200).json(recipe);
   } catch (error) {
-    res.status(400).json({ error: "Error in getting single recipe" });
+    return res.status(400).json({ error: "Error in getting single recipe" });
   }
 });
 
@@ -41,29 +54,36 @@ router.put("/:id", async (req, res) => {
     );
 
     if (!updatedRecipe) {
-      res.status(400).json({ error: "No recipe with this id" });
+      return res.status(400).json({ error: "No recipe with this id" });
     }
 
-    res.status(200).json(updatedRecipe);
+    return res.status(200).json(updatedRecipe);
   } catch (error) {
-    res.status(400).json({ error: "Error in updating recipe" });
+    return res.status(400).json({ error: "Error in updating recipe" });
   }
 });
 
-router.post("/add", async (req, res) => {
-  const { title, ingredients, instructions, coverImage } = req.body;
-  if (!title || !ingredients || !instructions || !coverImage) {
-    res.status(400).json({ error: "All Fields Are Required" });
+router.post("/add", upload.single("coverImage"), async (req, res) => {
+  const { title, ingredients, instructions } = req.body;
+  try {
+    if (
+      title == "undefined" ||
+      ingredients == "undefined" ||
+      instructions == "undefined"
+    ) {
+      return res.status(400).json({ error: "All Fields Are Required" });
+    }
+    const newRecipe = await Recipe.create({
+      title,
+      ingredients,
+      instructions,
+			coverImage: req.file?.filename
+    });
+
+    return res.status(200).json(newRecipe);
+  } catch (error) {
+    return res.status(400).json({ error: "Error in adding a recipe" });
   }
-
-  const newRecipe = await Recipe.create({
-    title,
-    ingredients,
-    instructions,
-    coverImage,
-  });
-
-  res.status(200).json(newRecipe);
 });
 
 router.delete("/:id", async (req, res) => {
@@ -71,11 +91,11 @@ router.delete("/:id", async (req, res) => {
   try {
     const deletedRecipe = await Recipe.findOneAndDelete(id);
     if (!deletedRecipe) {
-      res.status(400).json({ error: "No recipe with this id" });
+      return res.status(400).json({ error: "No recipe with this id" });
     }
-    res.status(200).json({ message: "Recipe deleted successfully" });
+    return res.status(200).json({ message: "Recipe deleted successfully" });
   } catch (error) {
-    res.status(400).json({ error: "Error in deleting recipe" });
+    return res.status(400).json({ error: "Error in deleting recipe" });
   }
 });
 

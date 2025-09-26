@@ -1,19 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
-import Modal from "../modal/Modal.jsx" 
+import Modal from "../modal/Modal.jsx";
 import FormInput from "../formInput/FormInput.jsx";
-
-
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  let token = localStorage.getItem("token");
+  const [isLogin, setIsLogin] = useState(token ? true : false);
+
+  useEffect(() => {
+    setIsLogin(token ? true : false);
+  }, [token]);
 
   const checkLogin = () => {
-    setIsOpen(true);
+    if (token) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setIsLogin(false);
+    } else {
+      setIsOpen(true);
+    }
   };
 
-	const closeModal = () => {
-		setIsOpen(false);
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+	const handleLinkClick = (e) => {
+		if(!isLogin) {
+			e.preventDefault();
+			setIsOpen(true)
+		}
+
 	}
 
   return (
@@ -24,27 +43,33 @@ export default function Navbar() {
             <img src={logo} alt="Logo here" width={300} />
           </div>
           <div className="nav-links">
-            <ul>
+            <ul className="m-0 p-0">
               <li>
-                <a href="/">Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <a href="/recipes">Recipes</a>
+                <Link onClick={handleLinkClick} to={isLogin ? "/myRecipes" : "/"}>My Recipes</Link>
               </li>
               <li>
-                <a href="/about">About</a>
+                <Link onClick={handleLinkClick} to={isLogin ? "/myFavRecipes" : "/"}>Favorites</Link>
               </li>
               <li>
-                <a href="/contacts">Contacts</a>
+                <Link to="/contacts">Contacts</Link>
               </li>
               <li>
-                <button onClick={checkLogin}>Login</button>
+                <button onClick={checkLogin}>
+                  {isLogin ? "Logout" : "Login"}
+                </button>
               </li>
             </ul>
           </div>
         </nav>
       </header>
-			{isOpen && <Modal onClose={closeModal} ><FormInput /></Modal>}
+      {isOpen && (
+        <Modal onClose={closeModal}>
+          <FormInput />
+        </Modal>
+      )}
     </>
   );
 }

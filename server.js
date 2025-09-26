@@ -1,21 +1,20 @@
 const express = require("express");
 require("dotenv").config();
-const cors = require('cors')
-const recipeRouter = require("./routes/recipe.router.js")
-const userRouter = require("./routes/user.router.js")
-const connectDB = require("./config/connectDB.js")
+const cors = require("cors");
+const recipeRouter = require("./routes/recipe.router.js");
+const userRouter = require("./routes/user.router.js");
+const connectDB = require("./config/connectDB.js");
 
-connectDB()
+connectDB();
 
 const app = express();
-const port = process.env.PORT | 3000
+const port = process.env.PORT | 3000;
 
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
-
-app.use("/recipes", recipeRouter)
-app.use("/users", userRouter)
-
+app.use(express.json());
+app.use(cors());
+app.use(express.urlencoded({ extended: false }));
+app.use("/public", express.static("public"));
+app.use("/recipes", recipeRouter);
+app.use("/users", userRouter);
 
 app.listen(port, () => console.log("working successfully"));
