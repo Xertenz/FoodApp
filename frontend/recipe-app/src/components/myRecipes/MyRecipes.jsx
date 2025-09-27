@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { IoHeartSharp } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { HiMiniPencilSquare } from "react-icons/hi2";
-import { Link } from "react-router-dom";
 
 export default function MyRecipes() {
   const [recipes, setRecipes] = useState([]);
@@ -19,8 +18,16 @@ export default function MyRecipes() {
     fetchMyRecipes();
   }, []);
 
-	console.log(recipes)
+  console.log(recipes);
 
+  const onDeleteRecipe = async (id) => {
+    try {
+      await axios.delete(`http://127.0.0.1:3000/recipes/${id}`);
+      setRecipes((prev) => prev.filter((recipe) => recipe._id !== id));
+    } catch (error) {
+      alert("Error in deleting recipe");
+    }
+  };
 
   return (
     <div>
@@ -43,7 +50,10 @@ export default function MyRecipes() {
                   <a href={`/editRecipe/${recipe._id}`}>
                     <HiMiniPencilSquare className="icon" />
                   </a>
-                  <MdDeleteOutline className="icon" />
+                  <MdDeleteOutline
+                    className="icon"
+                    onClick={() => onDeleteRecipe(recipe._id)}
+                  />
                 </div>
               </div>
             ))}

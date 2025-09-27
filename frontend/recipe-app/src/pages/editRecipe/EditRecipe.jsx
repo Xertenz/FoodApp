@@ -16,21 +16,20 @@ export default function EditRecipe() {
     const getRecipe = async () => {
       try {
         const { data } = await axios.get(`http://127.0.0.1:3000/recipes/${id}`);
-				setRecipe({
-					title: data.title,
-					ingredients: data.ingredients.join(","),
-					instructions: data.instructions,
-					coverImage: data.coverImage? data.coverImage: null
-				})
+        setRecipe({
+          title: data.title,
+          ingredients: data.ingredients.join(","),
+          instructions: data.instructions,
+          coverImage: data.coverImage ? data.coverImage : null,
+        });
       } catch (error) {
-				alert("No id with this recipe")
-			}
+        alert("No id with this recipe");
+      }
     };
     getRecipe();
   }, []);
 
-	console.log(recipe)
-
+  console.log(recipe);
 
   const handleChange = (e) => {
     let val;
@@ -73,7 +72,7 @@ export default function EditRecipe() {
       <form method="POST" onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="mb-3">
           <input
-						value={recipe.title}
+            value={recipe.title}
             onChange={handleChange}
             className="form-control rounded-0"
             type="text"
@@ -83,7 +82,7 @@ export default function EditRecipe() {
         </div>
         <div className="mb-3">
           <input
-						value={recipe.ingredients}
+            value={recipe.ingredients}
             onChange={handleChange}
             className="form-control rounded-0"
             type="text"
@@ -93,7 +92,7 @@ export default function EditRecipe() {
         </div>
         <div className="mb-3">
           <input
-						value={recipe.instructions}
+            value={recipe.instructions}
             onChange={handleChange}
             className="form-control rounded-0"
             type="text"

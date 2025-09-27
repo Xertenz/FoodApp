@@ -95,9 +95,9 @@ router.post(
 );
 
 router.delete("/:id", async (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
   try {
-    const deletedRecipe = await Recipe.findOneAndDelete(id);
+    const deletedRecipe = await Recipe.findByIdAndDelete(id);
     if (!deletedRecipe) {
       return res.status(400).json({ error: "No recipe with this id" });
     }
