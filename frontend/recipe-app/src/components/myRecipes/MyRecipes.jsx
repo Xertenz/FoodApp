@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoHeartSharp } from "react-icons/io5";
+import { MdDeleteOutline } from "react-icons/md";
+import { HiMiniPencilSquare } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 
 export default function MyRecipes() {
@@ -16,6 +18,9 @@ export default function MyRecipes() {
     };
     fetchMyRecipes();
   }, []);
+
+	console.log(recipes)
+
 
   return (
     <div>
@@ -34,6 +39,12 @@ export default function MyRecipes() {
                 <p className="ingredients">{recipe.ingredients}</p>
                 <small className="instructions">{recipe.instructions}</small>
                 <IoHeartSharp className="card-icon" />
+                <div className="icons">
+                  <a href={`/editRecipe/${recipe._id}`}>
+                    <HiMiniPencilSquare className="icon" />
+                  </a>
+                  <MdDeleteOutline className="icon" />
+                </div>
               </div>
             ))}
           </div>

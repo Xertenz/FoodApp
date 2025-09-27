@@ -117,6 +117,10 @@ nav .nav-links ul li a:hover {
 {
 	margin-bottom: 8px;
 }
+.cards-wrapper .card .ingredients {
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
 .cards-wrapper .card .instructions {
 	color: #555;
 }
@@ -129,5 +133,12 @@ nav .nav-links ul li a:hover {
 	right: 1rem;
 	font-size: 1.5rem;
 	color: #ff6347
+}
+.cards-wrapper .card .icons {
+	margin-top: 8px;
+}
+.cards-wrapper .card .icons .icon {
+	color: #ff6347;
+	font-size: 20px;
 }
 /*End Recipes*/
