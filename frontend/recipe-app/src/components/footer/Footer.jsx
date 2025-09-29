@@ -10,7 +10,8 @@ export default function Footer() {
 		},
 		text: {
 			color: "#fff",
-			textAlign: "center"
+			textAlign: "center",
+			margin: 0
 		}
 	}
 

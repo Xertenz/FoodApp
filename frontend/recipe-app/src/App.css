@@ -1,19 +1,19 @@
+:root {
+	--orange-light: #ff9560;
+	--orange-dark: #cf4303;
+}
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
-
-.home-container .home {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
+#root {
+	min-height: 100vh;
 }
 
 .home-container .bg {
-	font-size: 0;
+  font-size: 0;
 }
 
 .home .left .title {
@@ -28,7 +28,7 @@
 }
 
 .home .right .logo {
-  width: 150px;
+  width: 258px;
   border-radius: 12px;
 }
 
@@ -48,97 +48,152 @@
 }
 
 /*Navbar Start*/
+header {
+  background-color: #f0f0f0;
+}
 nav {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: #f0f0f0;
-	padding: 10px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
 }
 nav .logo img {
-	width: 50px
+  width: 50px;
 }
 nav .nav-links ul {
-	list-style: none;
-	display: flex;
-	align-items: center;
+  list-style: none;
+  display: flex;
+  align-items: center;
+	user-select: none;
 }
 nav .nav-links ul li a,
-nav .nav-links ul li button{
-	display: inline-block;
-	padding: 10px 20px;
-	text-decoration: none;
-	color: #ff9560;
-	cursor: pointer;
-	transition: 0.3s all ease;
+nav .nav-links ul li button {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #ff9560;
+  cursor: pointer;
+  transition: 0.3s all ease;
 }
 
-nav .nav-links ul li a:hover {
+nav .nav-links ul li a:hover,
+nav .nav-links ul li .btn-log:hover {
   background-color: #cf4303;
-	color: white;
+  color: white;
+}
+nav .nav-links ul li .btn-log {
+  border: 1px solid #ccc;
+	border-radius: 50px;
+}
+nav .hamburger {
+	border: 1px solid #ccc;
+	background-color: var(--orange-light);
+	border-radius: 2px;
+}
+nav .hamburger svg {
+  font-size: 30px;
+	user-select: none;
+  cursor: pointer;
+	color: #555;
+}
+@media screen and (max-width: 767px) {
+	#root {
+		overflow: hidden;
+	}
+  header {
+    position: relative;
+  }
+  nav .nav-links {
+    position: absolute;
+    top: 100%;
+    background-color: #fff;
+		transition: all 0.2s ease;
+		border: 1px solid #ddd;
+  }
+  nav .nav-links.unshown {
+    right: -160px;
+	}
+  nav .nav-links.shown{
+    right: 0px;
+		z-index: 9;
+	}
+
+  nav .nav-links ul {
+    flex-direction: column;
+  }
+  nav .nav-links ul li {
+    width: 100%;
+  }
+  nav .nav-links ul li a,
+  nav .nav-links ul li button {
+    padding: 0;
+    width: 100%;
+    padding: 14px 38px;
+    text-align: center;
+  }
+}
+@media screen and (min-width: 768px) {
+  nav .hamburger svg {
+    display: none;
+  }
 }
 /*Navbar End*/
 
-
 /*Start Recipes*/
-.cards-wrapper {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
-	justify-content: space-between;
-	padding: 2rem;
+.cards-wrapper .cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 18px;
 }
 .cards-wrapper .card {
-	width: 300px;
-	padding: 1rem;
-	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-	position: relative;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 .cards-wrapper .card,
 .cards-wrapper .card .title,
 .cards-wrapper .card .instructions {
-	transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 .cards-wrapper .card:hover {
-	transform: translateY(-5px);
-	background-color: #ff9560;
-	color: #fff;
+  transform: translateY(-5px);
+  background-color: #ff9560;
+  color: #fff;
 }
 .cards-wrapper .card:hover .title {
-	color: red;
+  color: red;
 }
 .cards-wrapper .card .title {
-	color: #ff6347;
-	text-transform: capitalize;
+  color: #ff6347;
+  text-transform: capitalize;
 }
 .cards-wrapper .card .title,
-.cards-wrapper .card .ingredients
-{
-	margin-bottom: 8px;
+.cards-wrapper .card .ingredients {
+  margin-bottom: 8px;
 }
 .cards-wrapper .card .ingredients {
-	margin-top: 10px;
-	margin-bottom: 0px;
+  margin-top: 10px;
+  margin-bottom: 0px;
 }
 .cards-wrapper .card .instructions {
-	color: #555;
+  color: #555;
 }
 .cards-wrapper .card:hover .instructions {
-	color: #fff;
+  color: #fff;
 }
 .cards-wrapper .card .card-icon {
-	position: absolute;
-	top: 1rem;
-	right: 1rem;
-	font-size: 1.5rem;
-	color: #ff6347
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  color: #ff6347;
 }
 .cards-wrapper .card .icons {
-	margin-top: 8px;
+  margin-top: 8px;
 }
 .cards-wrapper .card .icons .icon {
-	color: #ff6347;
-	font-size: 20px;
+  color: #ff6347;
+  font-size: 20px;
 }
 /*End Recipes*/

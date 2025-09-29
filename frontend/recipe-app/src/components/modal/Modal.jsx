@@ -6,7 +6,7 @@ export default function Modal({ onClose, children }) {
     <div className="backdrop">
       <div className="modal" tabIndex="-1">
         <div className="modal-dialog">
-          <div className="modal-content h-100 rounded-0">
+          <div className="modal-content min-vh-100 rounded-0">
             <div className="modal-header">
               <button
                 onClick={onClose}
@@ -23,7 +23,7 @@ export default function Modal({ onClose, children }) {
               <button
                 onClick={onClose}
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-secondary rounded-0"
                 data-bs-dismiss="modal"
               >
                 Close

@@ -6,42 +6,41 @@ import Modal from "../../components/modal/Modal";
 import FormInput from "../../components/formInput/FormInput";
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
 
-	const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate();
 
-	const navigate = useNavigate();
+  const addRecipe = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/addRecipe");
+    } else {
+      setIsOpen(true);
+    }
+  };
 
-	const addRecipe = () => {
-		const token = localStorage.getItem("token")
-		if(token) {
-			navigate("/addRecipe")
-		}else{
-			setIsOpen(true)
-		}
-		
-	}
-
-	const closeModal = () => {
-		setIsOpen(false)
-	}
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div className="home-container">
-      <section className="home">
-        <div className="left">
-          <h1 className="title">Share your favorite recipe with me</h1>
-          <p className="description">
-            Join our community of food lovers and share your favorite recipes
-            with the world. Whether its a family secret or a new creation, we
-            want to see it!
-          </p>
-          <button onClick={addRecipe}>Share Your Recipe</button>
-        </div>
-        <div className="right">
-          <img src={image1} className="logo" />
-        </div>
-      </section>
-
+      <div className="container">
+        <section className="home row gap-4 gap-md-0">
+          <div className="left col-12 col-md-6">
+            <h1 className="title">Share your favorite recipe with me</h1>
+            <p className="description">
+              Join our community of food lovers and share your favorite recipes
+              with the world. Whether its a family secret or a new creation, we
+              want to see it!
+            </p>
+            <button onClick={addRecipe}>Share Your Recipe</button>
+          </div>
+          <div className="right text-center col-12 col-md-6">
+            <img src={image1} className="logo" />
+          </div>
+        </section>
+      </div>
       <div className="bg">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
           <path
@@ -51,12 +50,14 @@ export default function Home() {
           ></path>
         </svg>
       </div>
-      {isOpen && (
-        <Modal onClose={closeModal}>
-          <FormInput />
-        </Modal>
-      )}
-			<AllRecipes />
+      <div>
+        {isOpen && (
+          <Modal onClose={closeModal}>
+            <FormInput />
+          </Modal>
+        )}
+        <AllRecipes />
+      </div>
     </div>
   );
 }

@@ -69,7 +69,7 @@ export default function FormInput() {
       </button>
       {error != "" && <p className="text-danger">{error}</p>}
       {success != "" && <p className="text-success">{success}</p>}
-      <p className="my-4 user-select-none">
+      <p className="mb-1 mt-4 user-select-none text-primary">
         <span role="button" onClick={() => setIsSignUp(!isSignUp)}>
           {isSignUp ? "Login to your account" : "Create a new account"}
         </span>
